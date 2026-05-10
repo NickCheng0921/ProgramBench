@@ -17,6 +17,7 @@ BASE = "https://programbench.com"
 
 TASK_RE = re.compile(r'href="(/task/[^"/]+/)"')
 REPO_RE = re.compile(r'class="instance-repo"[^>]*>([^<]+)<')
+LANG_RE = re.compile(r'class="instance-lang">([^<]+)<')
 STAT_RE = re.compile(
     r'<div class="stat-num">([^<]+)</div>\s*<div class="stat-label">([^<]+)</div>'
 )
@@ -43,6 +44,7 @@ class Task:
     slug: str
     owner: str
     repo: str
+    language: str
     tests: int | None
     best_score: float | None
     rows: list[ModelRow]
@@ -51,6 +53,8 @@ class Task:
 def parse_task(slug: str, html: str) -> Task:
     repo_full = REPO_RE.search(html).group(1).strip()
     owner, repo = repo_full.split("/", 1)
+    lang_m = LANG_RE.search(html)
+    language = lang_m.group(1).strip() if lang_m else ""
     stats = {label.strip(): num.strip() for num, label in STAT_RE.findall(html)}
     tests = int(stats["Generated Behavioral Tests"].replace(",", ""))
     best = float(stats["Best Score"].rstrip("%")) / 100
@@ -60,7 +64,7 @@ def parse_task(slug: str, html: str) -> Task:
         nums = NUM_CELLS_RE.findall(row_html)
         f = lambda s: float(s) if s else None
         rows.append(ModelRow(model, f(nums[0]), f(nums[1]), int(nums[2]) if nums[2] else None))
-    return Task(slug, owner, repo, tests, best, rows)
+    return Task(slug, owner, repo, language, tests, best, rows)
 
 
 def scrape() -> list[Task]:
@@ -85,7 +89,7 @@ def write_csv(tasks: list[Task], out: Path) -> None:
                 seen.add(r.model)
                 models.append(r.model)
 
-    header = ["repo_owner", "repo_name", "generated_behavioral_tests", "best_score"]
+    header = ["repo_owner", "repo_name", "language", "generated_behavioral_tests", "best_score"]
     for m in models:
         header += [f"{m} score", f"{m} cost", f"{m} calls"]
 
@@ -95,7 +99,7 @@ def write_csv(tasks: list[Task], out: Path) -> None:
         for t in sorted(tasks, key=lambda x: (x.owner.lower(), x.repo.lower())):
             by_model = {r.model: r for r in t.rows}
             rnd = lambda v: round(v, 4) if v is not None else ""
-            row: list = [t.owner, t.repo, t.tests, rnd(t.best_score)]
+            row: list = [t.owner, t.repo, t.language, t.tests, rnd(t.best_score)]
             for m in models:
                 r = by_model.get(m)
                 row += [rnd(r.score), rnd(r.cost), r.calls] if r else ["", "", ""]

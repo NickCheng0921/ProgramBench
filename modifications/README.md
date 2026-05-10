@@ -27,3 +27,6 @@ metrics_scraper/ is set up to compare model performance on the tasks + look for 
 - created w/ Opus 4.7, very similar to fig 25 in paper
 
 GPT 5.4 and Opus 4.7 have a very high pearson correlation on task-score compared to every other combination of models
+
+Results come from a single run across everything, not pass@k so we should expect strong per task variance if we recreate results
+  - pg 10, mentions 1800 runs, which is 1 run per task per model. Could have been costly to do pass@k but this is also Meta TBD...
