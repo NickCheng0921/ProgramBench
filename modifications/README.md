@@ -22,3 +22,8 @@ Tests are created and stored on huggingface, repo offers helper command to bring
 
 Leaderboard of best runs: https://programbench.com/
 - anthropic's heavily in the lead, their agents take more turns too (tuned for swe bench heavily? :) )
+
+metrics_scraper/ is set up to compare model performance on the tasks + look for differences/model biases
+- created w/ Opus 4.7, very similar to fig 25 in paper
+
+GPT 5.4 and Opus 4.7 have a very high pearson correlation on task-score compared to every other combination of models

@@ -1,0 +1,10 @@
+model,n,mean_turns,median_turns,min_turns,max_turns
+Claude Opus 4.7,200,92.5,80,14,318
+Claude Opus 4.6,200,259.8,253,85,497
+Claude Sonnet 4.6,200,471.9,443,100,1000
+Claude Haiku 4.5,200,124.4,119,65,245
+GPT 5.4,200,16.2,10,6,1000
+GPT 5.4 mini,200,17.6,9,5,323
+GPT 5 mini,200,15.1,14,6,43
+Gemini 3.1 Pro,200,94.5,89,33,222
+Gemini 3 Flash,200,85.0,81,35,166
