@@ -177,3 +177,7 @@ pyrightconfig.json
 # Fork specific ignores
 /blobs/
 /modifications/env.sh
+/modifications/rerun/extracted_tests/
+
+# Local scratch dir
+tmp/
