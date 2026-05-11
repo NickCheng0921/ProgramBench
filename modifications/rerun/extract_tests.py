@@ -137,8 +137,10 @@ def main() -> None:
     if total_skipped:
         print(f"Skipped {total_skipped} files with characters illegal on this OS.")
     if missing_repos:
-        print(f"WARNING - {len(missing_repos)} repos missing blobs dir: "
-              f"{', '.join(missing_repos)}")
+        print(
+            f"WARNING - {len(missing_repos)} repos missing blobs dir: "
+            f"{', '.join(missing_repos)}"
+        )
     else:
         print(f"OK - all {len(rows)} repos found in blobs/")
 
