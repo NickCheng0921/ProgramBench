@@ -21,6 +21,15 @@ Tests are created and stored on huggingface, repo offers helper command to bring
 Run `/modifications/rerun/extract_test.py` to conver the hf compressed tarballs to testing directories
   - you'll have to pull them first from `https://huggingface.co/datasets/programbench/ProgramBench-Tests`
 
+## To run a test w/ an open-source model
+
+Download and extract the tests using the above setup step
+
+Use one of the docstring examples in `modifications/rerun/run_agents.py` to make a single run w/ an Openrouter model
+- you'll need to set your key + load some money onto your account, $5 is more than enough to make 3+ runs in my experience
+
+View turn count + run info w/ `mini-e i path_to/trajectory.json`
+
 ## Other Info
 
 Leaderboard of best runs: https://programbench.com/
