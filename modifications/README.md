@@ -1,6 +1,6 @@
 # modifications
 
-I'm interested in how open source models perform on ProgramBench + how much performance we can gain through auto prompt tuning w/ DSPy`.
+I'm interested in how open source models perform on ProgramBench.
 
 Thinking of using OpenRouter to handle the inference ( connect to mini-swe-agent ).
 
